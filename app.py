@@ -62,7 +62,6 @@ def first():
             else:
                 compute_result(item, "shiftC")
 
-    #to_json= json.dumps(res)
     return jsonify(res)
 
 
@@ -90,8 +89,8 @@ def second():
             dtime = parse(item.get("time")+"Z")
 
         if dtime>=start_time and dtime <= end_time:
-            r=item.get("runtime")
-            d=item.get("downtime")
+            r = item.get("runtime")
+            d = item.get("downtime")
             if r>1021:
                 runtime+=1021
                 downtime+=d+r-1021
@@ -100,16 +99,13 @@ def second():
                 downtime+=d
     utilisation = runtime*100/(runtime+downtime)
 
-
     res = {
     "runtime" : s_to_h(runtime),
     "downtime": s_to_h(downtime),
     "utilisation": "%0.2f" % utilisation
-
     }
 
-    to_json= json.dumps(res)
-    return to_json
+    return jsonify(res)
 
 
 @app.route("/3")
@@ -160,9 +156,5 @@ def third():
             "avg_belt2": res.get(k).get("sum_belt2",0)//res.get(k).get("count_belt2",1)
         }
         final_res.append(meta)
-    
 
-    to_json= json.dumps(final_res)
-    return to_json
-
-#    return jsonify(results = final_res)  
+    return jsonify(results = final_res)  
