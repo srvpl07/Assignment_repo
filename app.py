@@ -6,6 +6,7 @@ import pytz
 from flask import request
 import time
 import re
+from flask import jsonify
 
 app = Flask(__name__)
 
@@ -61,8 +62,8 @@ def first():
             else:
                 compute_result(item, "shiftC")
 
-    to_json= json.dumps(res)
-    return to_json
+    #to_json= json.dumps(res)
+    return jsonify(res)
 
 
 @app.route("/2")
